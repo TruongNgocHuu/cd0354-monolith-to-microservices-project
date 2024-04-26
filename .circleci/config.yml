@@ -13,9 +13,13 @@ jobs:
       - run:
           name : build docker file
           command: | 
+            cd udagram-api-user
             docker build -t huutocdai/udagram-api-user .
+            cd .. / udagram-api-feed
             docker build -t huutocdai/udagram-api-feed .
+            cd .. / udagram-reverseproxy
             docker build -t huutocdai/udagram-reverseproxy .
+            cd .. / udagram-frontend
             docker build -t huutocdai/udagram-frontend .
       - run:
           name: Login
