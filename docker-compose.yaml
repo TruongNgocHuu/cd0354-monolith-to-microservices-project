@@ -1,0 +1,45 @@
+version: "3"
+name: huug
+services:
+  reverseproxy:
+    container_name: reverseproxy
+    image: huutocdai/udagram-reverseproxy:latest
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - backend-user
+      - backend-feed
+  backend-user:
+    container_name: api-user
+    image: huutocdai/udagram-api-user:latest
+    environment:
+      POSTGRES_USERNAME: huutocdai
+      POSTGRES_PASSWORD: "0828468260"
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: project3.cknorfhs8ijn.us-east-1.rds.amazonaws.com
+      AWS_REGION: us-east-1
+      AWS_PROFILE: default
+      AWS_BUCKET: arn:aws:s3:::project3-258669172645-dev
+      JWT_SECRET: testing
+      URL: "http://localhost:8100"
+  backend-feed:
+    container_name: api-feed
+    image: huutocdai/udagram-api-feed:latest
+    volumes:
+      - $HOME/.aws:/root/.aws
+    environment:
+      POSTGRES_USERNAME: huutocdai
+      POSTGRES_PASSWORD: "0828468260"
+      POSTGRES_DB: postgres
+      POSTGRES_HOST: project3.cknorfhs8ijn.us-east-1.rds.amazonaws.com
+      AWS_REGION: us-east-1
+      AWS_PROFILE: default
+      AWS_BUCKET: arn:aws:s3:::project3-258669172645-dev
+      JWT_SECRET: testing
+      URL: "http://localhost:8100"
+  frontend:
+    container_name: frontend
+    image: huutocdai/udagram-frontend:latest
+    ports:
+      - "8100:80"

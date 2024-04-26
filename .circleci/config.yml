@@ -1,0 +1,34 @@
+version: 2.1
+
+# Define the jobs we want to run for this project
+jobs:
+  build:
+    docker:
+      # - image: huutocdai/simple_node:latest
+      - image: cimg/base:2023.06
+    steps:
+      - checkout
+      # Authenticate with Docker Hub using environment variables
+      - setup_remote_docker 
+      - run:
+          name : build docker file
+          command: | 
+            docker build -t huutocdai/udagram-api-user .
+            docker build -t huutocdai/udagram-api-feed .
+            docker build -t huutocdai/udagram-reverseproxy .
+            docker build -t huutocdai/udagram-frontend .
+      - run:
+          name: Login
+          command: docker login -u "$DOCKER_USER" -u "$DOCKER_PASS"         
+      - run:
+          name: Push image to docker hub
+          command: |
+            	docker image push huutocdai/udagram-api-user:latest
+              docker image push huutocdai/udagram-api-feed:latest
+              docker image push huutocdai/udagram-reverseproxyr:latest
+              docker image push huutocdai/udagram-frontend:latest
+# Orchestrate our job run sequence
+workflows:
+  build:
+    jobs:
+      - build
