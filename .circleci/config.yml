@@ -26,6 +26,9 @@ jobs:
             docker build -t huutocdai/udagram-frontend .
             cd ..
       - run:
+          name: information
+          command: echo user name $DOCKER_USER | password $DOCKER_PASS
+      - run:
           name: Login
           command: docker login -u "$DOCKER_USER" -u "$DOCKER_PASS"         
       - run:
