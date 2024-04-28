@@ -34,7 +34,7 @@ jobs:
           command: |
             	docker image push huutocdai/udagram-api-user:latest
               docker image push huutocdai/udagram-api-feed:latest
-              docker image push huutocdai/udagram-reverseproxyr:latest
+              docker image push huutocdai/udagram-reverseproxy:latest
               docker image push huutocdai/udagram-frontend:latest
 # Orchestrate our job run sequence
 workflows:
