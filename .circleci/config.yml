@@ -27,11 +27,8 @@ jobs:
             cd ..
       - run:
           name: Login to Docker Hub
-          environment:
-            DOCKER_USERNAME: $DOCKER_USER
-            DOCKER_PASSWORD: $DOCKER_PASS
           command: |
-            echo $DOCKER_PASSWORD 
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - run:
           name: Push image to docker hub
           command: |
