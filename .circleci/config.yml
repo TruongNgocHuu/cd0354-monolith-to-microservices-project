@@ -31,7 +31,7 @@ jobs:
             DOCKER_USERNAME: $DOCKER_USER
             DOCKER_PASSWORD: $DOCKER_PASS
           command: |
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin     
+            echo "$DOCKER_PASSWORD"     
       - run:
           name: Push image to docker hub
           command: |
