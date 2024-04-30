@@ -3,16 +3,13 @@ kind: Deployment
 metadata:
   name: backend-feed
   labels:
-    app: backend-feed
+    service: backend-feed
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app: backend-feed
   template:
     metadata:
       labels:
-        app: backend-feed
+        service: backend-feed
     spec:
       containers:
       - name: backend-feed
@@ -64,12 +61,12 @@ spec:
         - name: POSTGRES_USERNAME
           valueFrom:
             configMapKeyRef:
-              name: env-sceret
+              name: env-secret
               key:  POSTGRES_USERNAME
         - name: POSTGRES_PASSWORD
           valueFrom:
             configMapKeyRef:
-              name: env-sceret
+              name: env-secret
               key: POSTGRES_PASSWORD      
         volumeMounts:
         - name: aws-secret
@@ -78,5 +75,6 @@ spec:
       restartPolicy: Always
       volumes:
       - name: aws-secret
-        secret: aws-secret          
+        secret: 
+          secret-name: aws-secret          
 
