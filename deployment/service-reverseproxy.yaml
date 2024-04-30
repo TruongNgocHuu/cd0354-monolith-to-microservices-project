@@ -3,11 +3,11 @@ kind: Service
 metadata:
   name: reverseproxy
   labels:
-    app.kubernetes.io/name: reverseproxy
+    app: reverseproxy
 spec:
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8080
+    targetPort: 8080
   selector:
-    app.kubernetes.io/name: reverseproxy
+    app: reverseproxy
